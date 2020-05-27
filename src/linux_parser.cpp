@@ -127,6 +127,7 @@ long LinuxParser::Jiffies() {
  }
 
 // TODO: Read and return the number of active jiffies for a PID
+// REMOVE: [[maybe_unused]] once you define the function
 long LinuxParser::ActiveJiffies(int pid) { 
     string value, line ;
   long clock; 
@@ -155,7 +156,7 @@ long LinuxParser::ActiveJiffies() {
 // TODO: Read and return the number of idle jiffies for the system
 long LinuxParser::IdleJiffies() { 
   string line, key;
-  long idlejeffies = 0 ; 
+  long idlejiffies = 0 ; 
   std::ifstream filestream(kProcDirectory + kStatFilename);
   if (filestream.is_open())
   {
@@ -164,13 +165,11 @@ long LinuxParser::IdleJiffies() {
     int value ;
     for(int i = 0; i<6 ; i++){
       if (i == 0) {linestream >> key;}
-      else if (i < 3) {linestream >> value; idlejeffies += value; }
+      else if (i < 3) {linestream >> value; idlejiffies += value; }
       else {linestream >> value;}
-      
     }
-    
   }
-    return idlejeffies; 
+    return idlejiffies; 
  }
 
 // TODO: Read and return CPU utilization
@@ -212,7 +211,6 @@ vector<string> LinuxParser::CpuUtilization() {
     util = totalSeconds != 0 ? (totalProcessTime/(float)totalSeconds) : 0.0;
   }
   return util;
-
  }
 
 // TODO: Read and return the total number of processes
@@ -222,7 +220,6 @@ int LinuxParser::TotalProcesses() {
   if (filestream.is_open()) {
       std::string line;
       bool processNumberFound = false;
-      
       while (std::getline(filestream, line) && !processNumberFound) {
         std::istringstream linestream(line);
         std::string key;
@@ -233,7 +230,6 @@ int LinuxParser::TotalProcesses() {
             processNumberFound = true;
         }
       }
-
   }
   return totalProcesses; 
   }
@@ -244,8 +240,7 @@ int LinuxParser::RunningProcesses() {
    long runningProcesses = 0;
   if (filestream.is_open()) {
       std::string line;
-      bool processNumberFound = false;
-      
+      bool processNumberFound = false;     
       while (std::getline(filestream, line) && !processNumberFound) {
         std::istringstream linestream(line);
         std::string key;
@@ -256,7 +251,6 @@ int LinuxParser::RunningProcesses() {
             processNumberFound = true;
         }
       }
-
   }
   return runningProcesses; 
 }
@@ -271,7 +265,6 @@ string LinuxParser::Command(int pid) {
   if (filestream.is_open())
   {
     std::getline(filestream, cmd); 
-
   }
   return cmd; 
   
@@ -291,8 +284,7 @@ string LinuxParser::Ram(int pid) {
       std::istringstream linestream(line); 
       linestream >> key ; 
       if (key == "VmSize:"){linestream >> ram; break ; }
-    }
-    
+    } 
   }
   return std::to_string(ram/1000);
   
@@ -310,8 +302,7 @@ string LinuxParser::Uid(int pid) {
     while (linestream >>key)
     {
       if (key == "Uid:"){linestream >> uid; break ; }
-    }
-    
+    }   
   }
   return uid ; 
  }

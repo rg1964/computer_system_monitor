@@ -4,7 +4,14 @@
 #include <fstream>
 #include <regex>
 #include <string>
+// this file parses the Linux system information
+// it reads it from the filesystem, the /proc directory
+// which contains different directories with specific info
 
+// the parser is not implmented as a class because
+// there is no object level data, or member level data,
+// that needs to be persisted within the Linux parser
+// Therefore it is defined as a namespace
 namespace LinuxParser {
 // Paths
 const std::string kProcDirectory{"/proc/"};

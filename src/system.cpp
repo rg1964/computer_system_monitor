@@ -13,8 +13,10 @@ using std::set;
 using std::size_t;
 using std::string;
 using std::vector;
-using namespace LinuxParser;
 
+// defien namespace since a lot of functions are implemented in LinuxParser
+using namespace LinuxParser;
+// a list of accessor function is listed below
 // TODO: Return the system's CPU
 Processor& System::Cpu() { return cpu_; }
 
@@ -27,7 +29,6 @@ vector<Process>& System::Processes() {
         Process p(pid) ;
         processes_.push_back(p); 
     }
-       
     std::sort(processes_.begin(), processes_.end()); 
     return processes_;
     }
@@ -48,4 +49,5 @@ int System::RunningProcesses() { return LinuxParser::RunningProcesses(); }
 int System::TotalProcesses() { return LinuxParser::TotalProcesses(); }
 
 // TODO: Return the number of seconds since the system started running
+// Implemented as a passthrough function
 long int System::UpTime() { return LinuxParser::UpTime(); }

@@ -8,6 +8,4 @@ using namespace LinuxParser ;
 float Processor::Utilization() { 
     float cpu_usage = (float)ActiveJiffies() / Jiffies(); 
     return cpu_usage; 
-    
-
  }
